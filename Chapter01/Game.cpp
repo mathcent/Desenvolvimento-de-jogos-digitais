@@ -109,6 +109,7 @@ void Game::ProcessInput()
 	// Update paddle direction based on W/S keys - atualize a direção da raquete com base na entrada do jogador
 	// W -> move a raquete para cima, S -> move a raquete para baixo
 	mPaddleDir = 0;
+	mPaddle2Dir = 0;
 	if (state[SDL_SCANCODE_W])
 	{
 		mPaddleDir -= 2.5;
