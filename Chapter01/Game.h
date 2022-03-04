@@ -9,7 +9,7 @@
 #pragma once
 #include "SDL/SDL.h"
 
-// Vector2 struct just stores x/y coordinates
+// Vector2 struct just stores x/y coordinates s
 // (for now)
 struct Vector2
 {
