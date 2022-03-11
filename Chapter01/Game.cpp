@@ -73,8 +73,8 @@ bool Game::Initialize()
 
 	mBall2Pos.x = 1200.0f / 2.0f;//posição da bola eixo x
 	mBall2Pos.y = 1200.0f / 2.0f;//posição da bola eixo y
-	mBall2Vel.x = -200.0f;//velocidade de movimentação da bola no eixo x
-	mBall2Vel.y = 500.0f;//velocidade de movimentação da bola no eixo y
+	mBall2Vel.x = -100.0f;//velocidade de movimentação da bola no eixo x
+	mBall2Vel.y = 200.0f;//velocidade de movimentação da bola no eixo y
 
 	return true;
 }
@@ -188,7 +188,6 @@ void Game::UpdateGame()
 	
 	// atualiza a posição da bola se ela colidiu com a raquete
 	float diff = mPaddlePos.y - mBallPos.y;
-	
 
 	//pegue o valor absoluto de diferença entre o eixo y da bolinha e da raquete
 	//isso é necessário para os casos em que no próximo frame a bolinha ainda não esteja tão distante da raquete
@@ -202,7 +201,7 @@ void Game::UpdateGame()
 		// A bolinha está se movendo para a esquerda
 		mBallVel.x < 0.0f)
 	{
-		mBallVel.x *= -1.0f;
+		mBallVel.x *= -1.2f;
 	}
 
 	float diff2 = mPaddle2Pos.y - mBallPos.y;
@@ -224,7 +223,7 @@ void Game::UpdateGame()
 	// 
 	else if (mBallPos.x <= 0.0f)
 	{
-		//mIsRunning = false;
+		mIsRunning = false;
 		mBallPos.x = 1024.0f / 2.0f;//posição da bola eixo x
 		mBallPos.y = 768.0f / 2.0f;//posição da bola eixo y
 	}
@@ -271,7 +270,7 @@ void Game::UpdateGame()
 		// A bolinha está se movendo para a esquerda
 		mBall2Vel.x < 0.0f)
 	{
-		mBall2Vel.x *= -1.0f;
+		mBall2Vel.x *= -1.2f;
 	}
 
 	float diff4 = mPaddle2Pos.y - mBall2Pos.y;
@@ -293,7 +292,7 @@ void Game::UpdateGame()
 	// 
 	else if (mBall2Pos.x <= 0.0f)
 	{
-		//mIsRunning = false;
+		mIsRunning = false;
 		mBall2Pos.x = 1024.0f / 2.0f;//posição da bola eixo x
 		mBall2Pos.y = 768.0f / 2.0f;//posição da bola eixo y
 	}
