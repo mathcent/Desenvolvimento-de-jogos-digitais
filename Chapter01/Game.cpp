@@ -71,6 +71,11 @@ bool Game::Initialize()
 	mBallVel.x = -200.0f;//velocidade de movimentação da bola no eixo x
 	mBallVel.y = 500.0f;//velocidade de movimentação da bola no eixo y
 
+	mBall2Pos.x = 1200.0f / 2.0f;//posição da bola eixo x
+	mBall2Pos.y = 1200.0f / 2.0f;//posição da bola eixo y
+	mBall2Vel.x = -200.0f;//velocidade de movimentação da bola no eixo x
+	mBall2Vel.y = 500.0f;//velocidade de movimentação da bola no eixo y
+
 	return true;
 }
 
@@ -112,19 +117,19 @@ void Game::ProcessInput()
 	mPaddle2Dir = 0;
 	if (state[SDL_SCANCODE_W])
 	{
-		mPaddleDir -= 2.5;
+		mPaddleDir -= 3;
 	}
 	if (state[SDL_SCANCODE_S])
 	{
-		mPaddleDir += 2.5;
+		mPaddleDir += 3;
 	}
 	if (state[SDL_SCANCODE_O])
 	{
-		mPaddle2Dir -= 2.5;
+		mPaddle2Dir -= 3;
 	}
 	if (state[SDL_SCANCODE_L])
 	{
-		mPaddle2Dir += 2.5;
+		mPaddle2Dir += 3;
 	}
 }
 
@@ -183,6 +188,8 @@ void Game::UpdateGame()
 	
 	// atualiza a posição da bola se ela colidiu com a raquete
 	float diff = mPaddlePos.y - mBallPos.y;
+	
+
 	//pegue o valor absoluto de diferença entre o eixo y da bolinha e da raquete
 	//isso é necessário para os casos em que no próximo frame a bolinha ainda não esteja tão distante da raquete
 	//verifica se a bola está na area da raquete e na mesma posição no eixo x
@@ -242,6 +249,75 @@ void Game::UpdateGame()
 		mBallVel.y > 0.0f)
 	{
 		mBallVel.y *= -1;
+	}
+
+	//---------------------------------------------------------------------------------------------------------------------------------------
+
+	// atualiza a posição da bola com base na sua velocidade
+	mBall2Pos.x += mBall2Vel.x * deltaTime;
+	mBall2Pos.y += mBall2Vel.y * deltaTime;
+
+	// atualiza a posição da bola se ela colidiu com a raquete
+	float diff3 = mPaddlePos.y - mBall2Pos.y;
+	//pegue o valor absoluto de diferença entre o eixo y da bolinha e da raquete
+	//isso é necessário para os casos em que no próximo frame a bolinha ainda não esteja tão distante da raquete
+	//verifica se a bola está na area da raquete e na mesma posição no eixo x
+	diff3 = (diff3 > 0.0f) ? diff3 : -diff3;
+	if (
+		// A diferença no eixo y y-difference is small enough
+		diff3 <= paddleH / 2.0f &&
+		// Estamos na posicao x correta
+		mBall2Pos.x <= 25.0f && mBall2Pos.x >= 20.0f &&
+		// A bolinha está se movendo para a esquerda
+		mBall2Vel.x < 0.0f)
+	{
+		mBall2Vel.x *= -1.0f;
+	}
+
+	float diff4 = mPaddle2Pos.y - mBall2Pos.y;
+
+	diff4 = (diff4 > 0.0f) ? diff4 : -diff4;
+	if (
+		// A diferença no eixo y y-difference is small enough
+		diff4 <= paddle2H / 2.0f &&
+		// Estamos na posicao x correta
+		mBall2Pos.x <= 25.0f && mBall2Pos.x >= 20.0f &&
+		// A bolinha está se movendo para a esquerda
+		mBall2Vel.x < 0.0f)
+	{
+		mBall2Vel.x *= -1.0f;
+	}
+
+	//Verifica se a bola saiu da tela (no lado esquerdo, onde é permitido)
+	//Se sim, encerra o jogo
+	// 
+	else if (mBall2Pos.x <= 0.0f)
+	{
+		//mIsRunning = false;
+		mBall2Pos.x = 1024.0f / 2.0f;//posição da bola eixo x
+		mBall2Pos.y = 768.0f / 2.0f;//posição da bola eixo y
+	}
+
+	// Atualize (negative) a velocidade da bola se ela colidir com a parede do lado direito
+	// 
+	else if (mBall2Pos.x >= (1024.0f - thickness) && mBall2Vel.x > 0.0f)
+	{
+		mBall2Vel.x *= -1.0f;
+	}
+
+	// Atualize (negative) a posição da bola se ela colidir com a parede de cima
+	// 
+	if (mBall2Pos.y <= thickness && mBall2Vel.y < 0.0f)
+	{
+		mBall2Vel.y *= -1;
+	}
+
+	// Atualize (negative) a posição da bola se ela colidiu com a parede de baixo
+	// Did the ball collide with the bottom wall?
+	else if (mBall2Pos.y >= (768 - thickness) &&
+		mBall2Vel.y > 0.0f)
+	{
+		mBall2Vel.y *= -1;
 	}
 
 	
@@ -333,6 +409,19 @@ void Game::GenerateOutput()
 	SDL_RenderFillRect(mRenderer, &ball);
 
 	SDL_SetRenderDrawColor(mRenderer, 255, 255, 0, 255);	
+
+	//mudar a cor do renderizador para a bola 2
+	SDL_SetRenderDrawColor(mRenderer, 255, 0, 0, 255);
+	// Draw ball 2
+	SDL_Rect ball2{
+		static_cast<int>(mBall2Pos.x - thickness / 2),
+		static_cast<int>(mBall2Pos.y - thickness / 2),
+		thickness,
+		thickness
+	};
+	SDL_RenderFillRect(mRenderer, &ball2);
+
+	SDL_SetRenderDrawColor(mRenderer, 255, 0, 0, 255);
 
 	
 	// Swap front buffer and back buffer

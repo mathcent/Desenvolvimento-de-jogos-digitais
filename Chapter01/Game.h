@@ -56,4 +56,8 @@ private:
 	Vector2 mBallPos;
 	// Velocity of ball
 	Vector2 mBallVel;
+	// Position of ball 2
+	Vector2 mBall2Pos;
+	// Velocity of ball 2
+	Vector2 mBall2Vel;
 };
