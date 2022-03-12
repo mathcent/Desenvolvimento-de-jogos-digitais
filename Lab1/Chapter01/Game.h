@@ -61,5 +61,5 @@ private:
 	// Velocity of ball 2
 	Vector2 mBall2Vel;
 
-	Vector2 scoreboard;
+	int count;
 };

@@ -7,6 +7,9 @@
 // ----------------------------------------------------------------
 
 #include "Game.h"
+#include <iostream>
+#include <sstream>
+#include <string.h>
 
 const int thickness = 15;//sera usado para setar a altura de alguns objetos
 const float paddleH = 150.0f;//tamanho da raquete
@@ -62,8 +65,6 @@ bool Game::Initialize()
 		return false;
 	}
 
-	scoreboard.x = 512.0f;
-	scoreboard.y = 700.0f;
 	mPaddlePos.x = 10.0f;//posição inicial da raquete eixo x
 	mPaddlePos.y = 768.0f/2.0f;//posição inicial da raquee eixo y
 	mPaddle2Pos.x = 1004.0f; //posição inicial da raquete eixo x
@@ -190,6 +191,7 @@ void Game::UpdateGame()
 	
 	// atualiza a posição da bola se ela colidiu com a raquete
 	float diff = mPaddlePos.y - mBallPos.y;
+	static int count = 0;
 
 	//pegue o valor absoluto de diferença entre o eixo y da bolinha e da raquete
 	//isso é necessário para os casos em que no próximo frame a bolinha ainda não esteja tão distante da raquete
@@ -204,6 +206,7 @@ void Game::UpdateGame()
 		mBallVel.x < 0.0f)
 	{
 		mBallVel.x *= -1.1f;
+		count = count + 1;
 	}
 
 	float diff2 = mPaddle2Pos.y - mBallPos.y;
@@ -225,9 +228,14 @@ void Game::UpdateGame()
 	// 
 	else if (mBallPos.x <= 0.0f)
 	{
-		mIsRunning = false;
 		mBallPos.x = 1024.0f / 2.0f;//posição da bola eixo x
 		mBallPos.y = 768.0f / 2.0f;//posição da bola eixo y
+		std::string s = std::to_string(count);
+		char const* pchar = s.c_str();
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", mWindow);
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Score",pchar, mWindow);
+		SDL_Log("Your score: ", count);
+		mIsRunning = false;
 	}
 
 	// Atualize (negative) a velocidade da bola se ela colidir com a parede do lado direito
@@ -327,6 +335,7 @@ void Game::UpdateGame()
 //Desenhando a tela do jogo
 void Game::GenerateOutput()
 {
+
 	// Setamos a cor de fundo par azul
 	SDL_SetRenderDrawColor(
 		mRenderer,
