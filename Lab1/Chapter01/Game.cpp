@@ -9,8 +9,8 @@
 #include "Game.h"
 
 const int thickness = 15;//sera usado para setar a altura de alguns objetos
-const float paddleH = 100.0f;//tamanho da raquete
-const float paddle2H = 100.0f;//tamanho da raquete
+const float paddleH = 150.0f;//tamanho da raquete
+const float paddle2H = 150.0f;//tamanho da raquete
 
 Game::Game()
 :mWindow(nullptr)//para criar uma janela
@@ -71,12 +71,12 @@ bool Game::Initialize()
 	mBallPos.x = 1024.0f/2.0f;//posição da bola eixo x
 	mBallPos.y = 768.0f/2.0f;//posição da bola eixo y
 	mBallVel.x = -200.0f;//velocidade de movimentação da bola no eixo x
-	mBallVel.y = 300.0f;//velocidade de movimentação da bola no eixo y
+	mBallVel.y = 400.0f;//velocidade de movimentação da bola no eixo y
 
 	mBall2Pos.x = 1200.0f / 2.0f;//posição da bola eixo x
 	mBall2Pos.y = 1200.0f / 2.0f;//posição da bola eixo y
-	mBall2Vel.x = -100.0f;//velocidade de movimentação da bola no eixo x
-	mBall2Vel.y = 200.0f;//velocidade de movimentação da bola no eixo y
+	mBall2Vel.x = -150.0f;//velocidade de movimentação da bola no eixo x
+	mBall2Vel.y = 300.0f;//velocidade de movimentação da bola no eixo y
 
 	return true;
 }
