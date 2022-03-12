@@ -232,7 +232,7 @@ void Game::UpdateGame()
 		mBallPos.y = 768.0f / 2.0f;//posição da bola eixo y
 		std::string s = std::to_string(count);
 		char const* pchar = s.c_str();
-		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", mWindow);
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over","Noob", mWindow);
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Score",pchar, mWindow);
 		SDL_Log("Your score: ", count);
 		mIsRunning = false;
@@ -281,6 +281,7 @@ void Game::UpdateGame()
 		mBall2Vel.x < 0.0f)
 	{
 		mBall2Vel.x *= -1.4f;
+		count = count + 1;
 	}
 
 	float diff4 = mPaddle2Pos.y - mBall2Pos.y;
@@ -302,9 +303,14 @@ void Game::UpdateGame()
 	// 
 	else if (mBall2Pos.x <= 0.0f)
 	{
-		mIsRunning = false;
 		mBall2Pos.x = 1024.0f / 2.0f;//posição da bola eixo x
 		mBall2Pos.y = 768.0f / 2.0f;//posição da bola eixo y
+		std::string s = std::to_string(count);
+		char const* pchar = s.c_str();
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "Noob", mWindow);
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Score", pchar, mWindow);
+		SDL_Log("Your score: ", count);
+		mIsRunning = false;
 	}
 
 	// Atualize (negative) a velocidade da bola se ela colidir com a parede do lado direito
