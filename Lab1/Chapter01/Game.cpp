@@ -67,7 +67,7 @@ bool Game::Initialize()
 
 	mPaddlePos.x = 10.0f;//posição inicial da raquete eixo x
 	mPaddlePos.y = 768.0f/2.0f;//posição inicial da raquee eixo y
-	mPaddle2Pos.x = 1004.0f; //posição inicial da raquete eixo x
+	mPaddle2Pos.x = 1000.0f; //posição inicial da raquete eixo x
 	mPaddle2Pos.y = 768.0f / 2.0f;//posição inicial da raquee eixo y
 	mBallPos.x = 1024.0f/2.0f;//posição da bola eixo x
 	mBallPos.y = 768.0f/2.0f;//posição da bola eixo y
