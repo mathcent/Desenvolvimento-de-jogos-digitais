@@ -209,6 +209,19 @@ void Game::UpdateGame()
 		count = count + 1;
 	}
 
+	diff = (diff < 1024.0f) ? diff : -diff;
+	if (
+		// A diferença no eixo y y-difference is small enough
+		diff <= paddleH / 2.0f &&
+		// Estamos na posicao x correta
+		mBallPos.x <= 999.0f && mBallPos.x >= 996.0f &&
+		// A bolinha está se movendo para a esquerda
+		mBallVel.x > 0.0f)
+	{
+		mBallVel.x *= -1.1f;
+		count = count + 1;
+	}
+
 	float diff2 = mPaddle2Pos.y - mBallPos.y;
 
 	diff2 = (diff2 > 0.0f) ? diff2 : -diff2;
@@ -219,6 +232,18 @@ void Game::UpdateGame()
 		mBallPos.x <= 25.0f && mBallPos.x >= 20.0f &&
 		// A bolinha está se movendo para a esquerda
 		mBallVel.x < 0.0f)
+	{
+		mBallVel.x *= -1.0f;
+	}
+
+	diff2 = (diff2 < 1024.0f) ? diff2 : -diff2;
+	if (
+		// A diferença no eixo y y-difference is small enough
+		diff2 <= paddle2H / 2.0f &&
+		// Estamos na posicao x correta
+		mBallPos.x <= 999.0f && mBallPos.x >= 996.0f &&
+		// A bolinha está se movendo para a esquerda
+		mBallVel.x > 0.0f)
 	{
 		mBallVel.x *= -1.0f;
 	}
@@ -238,11 +263,16 @@ void Game::UpdateGame()
 		mIsRunning = false;
 	}
 
-	// Atualize (negative) a velocidade da bola se ela colidir com a parede do lado direito
-	// 
-	else if (mBallPos.x >= (1024.0f - thickness) && mBallVel.x > 0.0f)
+	else if (mBallPos.x >= 1024.0f)
 	{
-		mBallVel.x *= -1.0f;
+		mBallPos.x = 1024.0f / 2.0f;//posição da bola eixo x
+		mBallPos.y = 768.0f / 2.0f;//posição da bola eixo y
+		std::string s = std::to_string(count);
+		char const* pchar = s.c_str();
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "Pleyer 1 Won!", mWindow);
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Score", pchar, mWindow);
+		SDL_Log("", count);
+		mIsRunning = false;
 	}
 	
 	// Atualize (negative) a posição da bola se ela colidir com a parede de cima
@@ -284,6 +314,19 @@ void Game::UpdateGame()
 		count = count + 1;
 	}
 
+	diff3 = (diff3 < 1024.0f) ? diff3 : -diff3;
+	if (
+		// A diferença no eixo y y-difference is small enough
+		diff3 <= paddle2H / 2.0f &&
+		// Estamos na posicao x correta
+		mBall2Pos.x <= 999.0f && mBall2Pos.x >= 996.0f &&
+		// A bolinha está se movendo para a esquerda
+		mBall2Vel.x > 0.0f)
+	{
+		mBall2Vel.x *= -1.1f;
+		count = count + 1;
+	}
+
 	float diff4 = mPaddle2Pos.y - mBall2Pos.y;
 
 	diff4 = (diff4 > 0.0f) ? diff4 : -diff4;
@@ -298,6 +341,19 @@ void Game::UpdateGame()
 		mBall2Vel.x *= -1.0f;
 	}
 
+	diff4 = (diff4 < 1024.0f) ? diff4 : -diff4;
+	if (
+		// A diferença no eixo y y-difference is small enough
+		diff4 <= paddle2H / 2.0f &&
+		// Estamos na posicao x correta
+		mBall2Pos.x <= 999.0f && mBall2Pos.x >= 996.0f &&
+		// A bolinha está se movendo para a esquerda
+		mBall2Vel.x > 0.0f)
+	{
+		mBall2Vel.x *= -1.1f;
+		count = count + 1;
+	}
+
 	//Verifica se a bola saiu da tela (no lado esquerdo, onde é permitido)
 	//Se sim, encerra o jogo
 	// 
@@ -307,17 +363,22 @@ void Game::UpdateGame()
 		mBall2Pos.y = 768.0f / 2.0f;//posição da bola eixo y
 		std::string s = std::to_string(count);
 		char const* pchar = s.c_str();
-		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "Noob", mWindow);
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "Pleyer 2 Won!", mWindow);
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Score", pchar, mWindow);
-		SDL_Log("Your score: ", count);
+		SDL_Log("", count);
 		mIsRunning = false;
 	}
 
-	// Atualize (negative) a velocidade da bola se ela colidir com a parede do lado direito
-	// 
-	else if (mBall2Pos.x >= (1024.0f - thickness) && mBall2Vel.x > 0.0f)
+	else if (mBall2Pos.x >= 1024.0f)
 	{
-		mBall2Vel.x *= -1.0f;
+		mBall2Pos.x = 1024.0f / 2.0f;//posição da bola eixo x
+		mBall2Pos.y = 768.0f / 2.0f;//posição da bola eixo y
+		std::string s = std::to_string(count);
+		char const* pchar = s.c_str();
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "Pleyer 1 Won!", mWindow);
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Score", pchar, mWindow);
+		SDL_Log("", count);
+		mIsRunning = false;
 	}
 
 	// Atualize (negative) a posição da bola se ela colidir com a parede de cima
