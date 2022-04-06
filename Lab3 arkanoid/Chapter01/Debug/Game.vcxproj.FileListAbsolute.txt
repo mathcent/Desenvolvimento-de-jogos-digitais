@@ -1,2 +1,3 @@
 C:\Users\FAGNERDEASSISMOURAPI\Desktop\Lab 2\Chapter01\Debug\Game.exe
 D:\Fei\jogos digitais\Lab 1\Chapter01\Debug\Game.exe
+D:\Fei\jogos digitais\Desenvolvimento-de-jogos-digitais\Lab3 arkanoid\Chapter01\Debug\Game.exe
