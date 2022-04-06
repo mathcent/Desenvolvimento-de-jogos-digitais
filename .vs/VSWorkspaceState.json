@@ -1,13 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Lab1 pong\\Chapter01",
-    "\\Lab1 pong\\External",
-    "\\Lab2 pong",
     "\\Lab2 pong\\Chapter01",
     "\\Lab3 arkanoid",
     "\\Lab3 arkanoid\\Chapter01"
   ],
-  "SelectedNode": "\\Lab3 arkanoid\\Chapter01\\Game.cpp",
+  "SelectedNode": "\\Lab3 arkanoid\\Chapter01\\Game.h",
   "PreviewInSolutionExplorer": false
 }

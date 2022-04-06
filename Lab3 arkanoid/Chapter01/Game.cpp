@@ -7,14 +7,10 @@
 // ----------------------------------------------------------------
 
 #include "Game.h"
-class Bloco
-{
-	float x;
-	float y;
-	int vida;
-};
+
 const int thickness = 15;//sera usado para setar a altura de alguns objetos ( altura agora)
 const float paddleH = 100.0f;//tamanho da raquete (largura agora )
+const float brickH = 100.0f;//tamanho da raquete (largura agora )
 
 Game::Game()
 	:mWindow(nullptr)//para criar uma janela
@@ -67,6 +63,8 @@ bool Game::Initialize()
 
 	mPaddlePos.x = 300.0f;//posição inicial da raquete eixo x
 	mPaddlePos.y = 650.0f;//posição inicial da raquee eixo y
+	mBrickPos.x = 15.0f;
+	mBrickPos.y = 15.0f;
 	mBallPos.x = 500.0f / 2.0f;//posição da bola eixo x
 	mBallPos.y = 500.0f / 2.0f;//posição da bola eixo y
 	mBallVel.x = -200.0f;//velocidade de movimentação da bola no eixo x
@@ -277,6 +275,24 @@ void Game::GenerateOutput()
 	thickness
 	};
 	SDL_RenderFillRect(mRenderer, &paddle);
+
+	SDL_SetRenderDrawColor(mRenderer, 100, 60, 60, 255);
+
+	SDL_Rect brick{
+	static_cast<int>(mBrickPos.x),//static_cast converte de float para inteiros, pois SDL_Rect trabalha com inteiros
+	static_cast<int>(mBrickPos.y),
+	static_cast<int>(brickH),
+	thickness
+	};
+
+	SDL_RenderFillRect(mRenderer, &brick);
+
+	// brick
+	/*wall.x = 15;
+	wall.y = 15;
+	wall.w = 100;
+	wall.h = thickness;
+	SDL_RenderFillRect(mRenderer, &wall);*/
 
 
 	//desenhando a bola - usando mBallPos que é uma struc de coordenadas definida como membro em Game.h
