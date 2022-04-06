@@ -1,0 +1,3 @@
+C:\Users\belmo\OneDrive\Área de Trabalho\Códigos_game\code-master\Chapter02\Debug\Game.exe
+C:\Users\belmo\OneDrive\Área de Trabalho\Códigos_game\code-master\Chapter02\Debug\Game.pdb
+D:\Fei\jogos digitais\Chapter02\Debug\Game.exe
