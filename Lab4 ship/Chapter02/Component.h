@@ -22,6 +22,7 @@ public:
 protected:
 	// Owning actor
 	class Actor* mOwner;
+		
 	// Update order of component
 	int mUpdateOrder;
 };

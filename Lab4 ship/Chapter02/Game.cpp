@@ -13,6 +13,9 @@
 #include "SpriteComponent.h"
 #include "Ship.h"
 #include "BGSpriteComponent.h"
+#include <string>
+#include <iostream>
+#include "Pedra.h"
 
 Game::Game()
 :mWindow(nullptr)
@@ -24,7 +27,9 @@ Game::Game()
 }
 
 bool Game::Initialize()
-{
+{	
+	time = 0;
+	clockPedras = 1;
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0)
 	{
 		SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
@@ -91,6 +96,17 @@ void Game::ProcessInput()
 	mShip->ProcessKeyboard(state);
 }
 
+void Game::AddPedra()
+{
+	float posX = 1000;
+	float posY = 768 * (0.25 * clockPedras);
+	Vector2 pos = Vector2(posX, posY);
+	Pedra* p = new Pedra(this);
+	p->SetPosition(pos);
+	p->SetScale(0.2f);
+	clockPedras = static_cast <float> (rand()%40) / static_cast <float> (10);	
+}
+
 void Game::UpdateGame()
 {
 	// Compute delta time
@@ -99,9 +115,17 @@ void Game::UpdateGame()
 		;
 
 	float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.0f;
+	
 	if (deltaTime > 0.05f)
 	{
 		deltaTime = 0.05f;
+	}
+
+	
+	if (SDL_GetTicks() >  time)
+	{
+		time += 100;
+		AddPedra();
 	}
 	mTicksCount = SDL_GetTicks();
 
@@ -124,6 +148,19 @@ void Game::UpdateGame()
 	std::vector<Actor*> deadActors;
 	for (auto actor : mActors)
 	{
+		if (actor->GetPosition().x < -100) //muda estado do Ator caso vá para fora da tela
+		{
+			actor->SetState(Actor::EDead);
+		}
+
+		if (calcDist(mShip->GetPosition(), actor->GetPosition()) && actor->GetTipo() == 2) //detecta colisão
+		{
+			
+			std::cout << actor->GetPosition().x << " " << mShip->GetPosition().x << std::endl;
+			//SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Fim de Jogo", "Você perdeu", NULL);
+			//SDL_QUIT;
+
+		}
 		if (actor->GetState() == Actor::EDead)
 		{
 			deadActors.emplace_back(actor);
@@ -179,6 +216,18 @@ void Game::LoadData()
 	};
 	bg->SetBGTextures(bgtexs);
 	bg->SetScrollSpeed(-200.0f);
+}
+
+bool Game::calcDist(Vector2 v1, Vector2 v2)
+{
+	float difX = v1.x - v2.x;
+	float difY = v1.y - v2.y;
+	if ((difX < 10 && difX > -10) && (difY < 10 && difY > -10)) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 void Game::UnloadData()

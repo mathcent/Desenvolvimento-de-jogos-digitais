@@ -36,7 +36,7 @@ public:
 	void SetScale(float scale) { mScale = scale; }
 	float GetRotation() const { return mRotation; }
 	void SetRotation(float rotation) { mRotation = rotation; }
-
+	int GetTipo()const { return tipo; }
 	State GetState() const { return mState; }
 	void SetState(State state) { mState = state; }
 
@@ -59,4 +59,6 @@ private:
 	//vetor de componentes
 	std::vector<class Component*> mComponents;
 	class Game* mGame;
+
+	int tipo;
 };

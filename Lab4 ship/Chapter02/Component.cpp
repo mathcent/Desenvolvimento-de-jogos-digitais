@@ -19,6 +19,7 @@ Component::Component(Actor* owner, int updateOrder)
 
 Component::~Component()
 {
+	
 	mOwner->RemoveComponent(this);
 }
 

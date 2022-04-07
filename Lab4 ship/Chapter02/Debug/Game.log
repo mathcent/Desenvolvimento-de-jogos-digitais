@@ -1,15 +1,19 @@
-﻿  Ship.cpp
-  Game.vcxproj -> D:\Fei\jogos digitais\Chapter02\Debug\Game.exe
-  D:\Fei\jogos digitais\Chapter02\\..\external\SDL\lib\win\x86\libfreetype-6.dll
-  D:\Fei\jogos digitais\Chapter02\\..\external\SDL\lib\win\x86\libogg-0.dll
-  D:\Fei\jogos digitais\Chapter02\\..\external\SDL\lib\win\x86\libpng16-16.dll
-  D:\Fei\jogos digitais\Chapter02\\..\external\SDL\lib\win\x86\libvorbis-0.dll
-  D:\Fei\jogos digitais\Chapter02\\..\external\SDL\lib\win\x86\libvorbisfile-3.dll
-  D:\Fei\jogos digitais\Chapter02\\..\external\SDL\lib\win\x86\SDL2.dll
-  D:\Fei\jogos digitais\Chapter02\\..\external\SDL\lib\win\x86\SDL2_image.dll
-  D:\Fei\jogos digitais\Chapter02\\..\external\SDL\lib\win\x86\SDL2_mixer.dll
-  D:\Fei\jogos digitais\Chapter02\\..\external\SDL\lib\win\x86\SDL2_ttf.dll
-  D:\Fei\jogos digitais\Chapter02\\..\external\SDL\lib\win\x86\zlib1.dll
-  10 File(s) copied
-  D:\Fei\jogos digitais\Chapter02\\..\external\GLEW\lib\win\x86\glew32.dll
-  1 File(s) copied
+﻿  Actor.cpp
+D:\Fei\jogos digitais\Desenvolvimento-de-jogos-digitais\Lab4 ship\Chapter02\Game.h(10,10): fatal error C1083: Cannot open include file: 'SDL/SDL.h': No such file or directory
+  AnimSpriteComponent.cpp
+D:\Fei\jogos digitais\Desenvolvimento-de-jogos-digitais\Lab4 ship\Chapter02\SpriteComponent.h(11,10): fatal error C1083: Cannot open include file: 'SDL/SDL.h': No such file or directory
+  BGSpriteComponent.cpp
+D:\Fei\jogos digitais\Desenvolvimento-de-jogos-digitais\Lab4 ship\Chapter02\SpriteComponent.h(11,10): fatal error C1083: Cannot open include file: 'SDL/SDL.h': No such file or directory
+  Component.cpp
+  Game.cpp
+D:\Fei\jogos digitais\Desenvolvimento-de-jogos-digitais\Lab4 ship\Chapter02\Game.h(10,10): fatal error C1083: Cannot open include file: 'SDL/SDL.h': No such file or directory
+  Main.cpp
+D:\Fei\jogos digitais\Desenvolvimento-de-jogos-digitais\Lab4 ship\Chapter02\Game.h(10,10): fatal error C1083: Cannot open include file: 'SDL/SDL.h': No such file or directory
+  Math.cpp
+  Pedra.cpp
+D:\Fei\jogos digitais\Desenvolvimento-de-jogos-digitais\Lab4 ship\Chapter02\SpriteComponent.h(11,10): fatal error C1083: Cannot open include file: 'SDL/SDL.h': No such file or directory
+  Ship.cpp
+D:\Fei\jogos digitais\Desenvolvimento-de-jogos-digitais\Lab4 ship\Chapter02\SpriteComponent.h(11,10): fatal error C1083: Cannot open include file: 'SDL/SDL.h': No such file or directory
+  SpriteComponent.cpp
+D:\Fei\jogos digitais\Desenvolvimento-de-jogos-digitais\Lab4 ship\Chapter02\SpriteComponent.h(11,10): fatal error C1083: Cannot open include file: 'SDL/SDL.h': No such file or directory
+  Generating Code...

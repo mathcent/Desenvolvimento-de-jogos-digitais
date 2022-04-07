@@ -38,9 +38,9 @@ void Ship::UpdateActor(float deltaTime)
 	{
 		pos.x = 25.0f;
 	}
-	else if (pos.x > 500.0f)
+	else if (pos.x > 982.0f)
 	{
-		pos.x = 500.0f;
+		pos.x = 982.0f;
 	}
 	if (pos.y < 25.0f)
 	{
@@ -60,19 +60,19 @@ void Ship::ProcessKeyboard(const uint8_t* state)
 	// right/left
 	if (state[SDL_SCANCODE_D])
 	{
-		mRightSpeed += 550.0f;
+		mRightSpeed += 350.0f;
 	}
 	if (state[SDL_SCANCODE_A])
 	{
-		mRightSpeed -= 650.0f;
+		mRightSpeed -= 350.0f;
 	}
 	// up/down
 	if (state[SDL_SCANCODE_S])
 	{
-		mDownSpeed += 500.0f;
+		mDownSpeed += 350.0f;
 	}
 	if (state[SDL_SCANCODE_W])
 	{
-		mDownSpeed -= 500.0f;
+		mDownSpeed -= 350.0f;
 	}
 }

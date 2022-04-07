@@ -11,6 +11,7 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
+#include "Math.h"
 
 class Game
 {
@@ -19,6 +20,8 @@ public:
 	bool Initialize();
 	void RunLoop();
 	void Shutdown();
+	void AddPedra();
+	bool calcDist(Vector2 v1, Vector2 v2);
 
 	void AddActor(class Actor* actor);
 	void RemoveActor(class Actor* actor);
@@ -51,7 +54,8 @@ private:
 	bool mIsRunning;
 	// Track if we're updating actors right now
 	bool mUpdatingActors;
-
+	float clockPedras;
+	int time;
 	// Game-specific
 	class Ship* mShip; // Player's ship
 };

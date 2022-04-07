@@ -16,7 +16,10 @@ public:
 	void ProcessKeyboard(const uint8_t* state);
 	float GetRightSpeed() const { return mRightSpeed; }
 	float GetDownSpeed() const { return mDownSpeed; }
+	int GetTipo()const {return 10;}
 private:
 	float mRightSpeed;
 	float mDownSpeed;
+
+
 };
