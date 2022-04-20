@@ -17,6 +17,7 @@
 #include <iostream>
 #include "Pedra.h"
 
+
 Game::Game()
 :mWindow(nullptr)
 ,mRenderer(nullptr)
@@ -27,9 +28,12 @@ Game::Game()
 }
 
 bool Game::Initialize()
-{	
+{
+
 	time = 0;
 	clockPedras = 1;
+	//float vetorPedrasX[50];
+	//float vetorPedrasY[50];
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0)
 	{
 		SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
@@ -98,22 +102,24 @@ void Game::ProcessInput()
 
 void Game::AddPedra()
 {
+	
 	float posX = 1000;
-	float posY = 768 * (0.25 * clockPedras);
+	float posY = 768 * (0.25 * clockPedras);	
 	Vector2 pos = Vector2(posX, posY);
 	Pedra* p = new Pedra(this);
 	p->SetPosition(pos);
 	p->SetScale(0.2f);
-	clockPedras = static_cast <float> (rand()%40) / static_cast <float> (10);	
+	clockPedras = static_cast <float> (rand()%40) / static_cast <float> (10);
+	//std::cout << pedraX->capacidade << std::endl;
 }
 
 void Game::UpdateGame()
 {
 	// Compute delta time
 	// Wait until 16ms has elapsed since last frame
-	while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16))
-		;
+	while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16));
 
+	
 	float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.0f;
 	
 	if (deltaTime > 0.05f)
@@ -126,14 +132,22 @@ void Game::UpdateGame()
 	{
 		time += 100;
 		AddPedra();
+
 	}
 	mTicksCount = SDL_GetTicks();
-
+	
 	// Update all actors
 	mUpdatingActors = true;
 	for (auto actor : mActors)
 	{
 		actor->Update(deltaTime);
+		if(calcDist(mShip->GetPosition(), actor->GetPosition().x, actor->GetPosition().y)) {
+
+			SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Fim de Jogo", "Você perdeu", NULL);
+			mIsRunning = false;
+		}
+		
+		
 	}
 	mUpdatingActors = false;
 
@@ -141,6 +155,7 @@ void Game::UpdateGame()
 	for (auto pending : mPendingActors)
 	{
 		mActors.emplace_back(pending);
+		
 	}
 	mPendingActors.clear();
 
@@ -153,19 +168,13 @@ void Game::UpdateGame()
 			actor->SetState(Actor::EDead);
 		}
 
-		if (calcDist(mShip->GetPosition(), actor->GetPosition()) && actor->GetTipo() == 2) //detecta colisão
-		{
-			
-			std::cout << actor->GetPosition().x << " " << mShip->GetPosition().x << std::endl;
-			//SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Fim de Jogo", "Você perdeu", NULL);
-			//SDL_QUIT;
-
-		}
+		
 		if (actor->GetState() == Actor::EDead)
 		{
 			deadActors.emplace_back(actor);
 		}
 	}
+
 
 	// Delete dead actors (which removes them from mActors)
 	for (auto actor : deadActors)
@@ -194,7 +203,7 @@ void Game::LoadData()
 	mShip = new Ship(this);
 	mShip->SetPosition(Vector2(100.0f, 384.0f));
 	mShip->SetScale(1.5f);
-
+	
 	// Create actor for the background (this doesn't need a subclass)
 	Actor* temp = new Actor(this);
 	temp->SetPosition(Vector2(512.0f, 384.0f));
@@ -218,11 +227,15 @@ void Game::LoadData()
 	bg->SetScrollSpeed(-200.0f);
 }
 
-bool Game::calcDist(Vector2 v1, Vector2 v2)
+bool Game::calcDist(Vector2 v1, float x,float y)
 {
-	float difX = v1.x - v2.x;
-	float difY = v1.y - v2.y;
-	if ((difX < 10 && difX > -10) && (difY < 10 && difY > -10)) {
+	if ((x == v1.x && y == v1.y) || (v1.x == 512 && v1.y  == 384)){
+		return false;
+	}
+	float difX = v1.x - x;
+	float difY = v1.y - y;
+	int limite = 30;
+	if ((difX < limite && difX > -limite) && (difY < limite && difY > -limite)) {
 		return true;
 	}
 	else {
@@ -291,6 +304,7 @@ void Game::Shutdown()
 
 void Game::AddActor(Actor* actor)
 {
+	
 	// If we're updating actors, need to add to pending
 	if (mUpdatingActors)
 	{
@@ -304,6 +318,7 @@ void Game::AddActor(Actor* actor)
 
 void Game::RemoveActor(Actor* actor)
 {
+	
 	// Is it in pending actors?
 	auto iter = std::find(mPendingActors.begin(), mPendingActors.end(), actor);
 	if (iter != mPendingActors.end())

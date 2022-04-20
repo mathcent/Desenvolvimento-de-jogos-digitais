@@ -26,3 +26,4 @@ void Pedra::UpdateActor(float deltaTime)
 
 	SetPosition(pos);
 }
+

@@ -15,9 +15,14 @@ public:
 	void UpdateActor(float deltaTime) override;
 	float GetRightSpeed() const { return mRightSpeed; }
 	float GetDownSpeed() const { return mDownSpeed; }
-	int GetTipo()const { return 2; }
+	int GetTipo()const { return numero; }
+
 	
 private:
+	std::vector<class Pedra*> pedras;
+	std::vector<std::pair<int, Pedra*>> pedrasApagar;
+
+	int numero;
 	float mRightSpeed;
 	float mDownSpeed;
 
